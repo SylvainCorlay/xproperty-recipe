@@ -1,0 +1,45 @@
+package:
+    name: xproperty
+    version: 0.6.0
+source:
+    fn: xproperty-0.6.0.tar.gz
+    sha256: d255fc6c10f1f61341c876d9dae106910958f734392600423b3e77a126d898ff
+    url: https://github.com/QuantStack/xproperty/archive/0.6.0.tar.gz
+build:
+    noarch: ''
+    noarch_python: false
+    number: '0'
+    string: '0'
+    skip: true  # [win and py<35]
+    features:     # [win]
+        - vc14    # [win]
+requirements:
+    build:
+        - cmake
+        - toolchain
+    run:
+        - xtl >=0.3.4,<0.4
+test:
+    commands:
+        - if exist %LIBRARY_INC%\xproperty\xproperty.hpp (exit 0) else (exit 1)                       # [win]
+        - if exist %LIBRARY_LIB%\cmake\xproperty\xpropertyConfig.cmake (exit 0) else (exit 1)         # [win]
+        - if exist %LIBRARY_LIB%\cmake\xproperty\xpropertyConfigVersion.cmake (exit 0) else (exit 1)  # [win]
+        - test -d ${PREFIX}/include/xproperty                                                         # [unix]
+        - test -f ${PREFIX}/include/xproperty/xproperty.hpp                                           # [unix]
+        - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfig.cmake                                 # [unix]
+        - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfigVersion.cmake                          # [unix]
+about:
+    description: Leveraging C++ template and preprocessor metaprogramming techniques
+    dev_url: https://github.com/QuantStack/xproperty
+    doc_url: http://xproperty.readthedocs.io
+    home: http://quantstack.net/xproperty
+    license: BSD 3-Clause
+    license_family: BSD
+    license_file: LICENSE
+    summary: C++ properties and obeserver pattern
+extra:
+    final: true
+    recipe-maintainers:
+        - SylvainCorlay
+        - JohanMabille
+        - gouarin
