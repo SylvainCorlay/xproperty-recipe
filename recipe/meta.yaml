@@ -8,8 +8,8 @@ source:
 build:
     noarch: ''
     noarch_python: false
-    number: '0'
-    string: '0'
+    number: '1'
+    string: '1'
     skip: true  # [win and py<35]
     features:     # [win]
         - vc14    # [win]
