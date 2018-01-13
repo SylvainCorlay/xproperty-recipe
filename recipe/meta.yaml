@@ -18,7 +18,7 @@ requirements:
         - cmake
         - toolchain
     run:
-        - xtl >=0.3.4,<0.4
+        - xtl >=0.3.8,<0.4
 test:
     commands:
         - if exist %LIBRARY_INC%\xproperty\xproperty.hpp (exit 0) else (exit 1)                       # [win]
