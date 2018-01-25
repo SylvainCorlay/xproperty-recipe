@@ -1,24 +1,30 @@
+{% set name = "xproperty" %}
+{% set version = "0.6.0" %}
+{% set sha256 = "d255fc6c10f1f61341c876d9dae106910958f734392600423b3e77a126d898ff" %}
+
 package:
-    name: xproperty
-    version: 0.6.0
+    name: {{ name|lower }}
+    version: {{ version }}
+
 source:
-    fn: xproperty-0.6.0.tar.gz
-    sha256: d255fc6c10f1f61341c876d9dae106910958f734392600423b3e77a126d898ff
-    url: https://github.com/QuantStack/xproperty/archive/0.6.0.tar.gz
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: https://github.com/QuantStack/xproperty/archive/{{ version }}.tar.gz
+    sha256: {{ sha256 }}   
+
 build:
     noarch: ''
     noarch_python: false
-    number: '1'
-    string: '1'
+    number: '0'
+    string: '0'
     skip: true  # [win and py<35]
-    features:     # [win]
-        - vc14    # [win]
+
 requirements:
     build:
         - cmake
         - toolchain
     run:
-        - xtl >=0.3.8,<0.4
+        - xtl >=0.4.0,<0.5
+        
 test:
     commands:
         - if exist %LIBRARY_INC%\xproperty\xproperty.hpp (exit 0) else (exit 1)                       # [win]
@@ -28,6 +34,7 @@ test:
         - test -f ${PREFIX}/include/xproperty/xproperty.hpp                                           # [unix]
         - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfig.cmake                                 # [unix]
         - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfigVersion.cmake                          # [unix]
+
 about:
     description: Leveraging C++ template and preprocessor metaprogramming techniques
     dev_url: https://github.com/QuantStack/xproperty
@@ -37,6 +44,7 @@ about:
     license_family: BSD
     license_file: LICENSE
     summary: C++ properties and obeserver pattern
+
 extra:
     final: true
     recipe-maintainers:
