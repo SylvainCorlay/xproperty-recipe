@@ -1,6 +1,6 @@
 {% set name = "xproperty" %}
-{% set version = "0.6.0" %}
-{% set sha256 = "d255fc6c10f1f61341c876d9dae106910958f734392600423b3e77a126d898ff" %}
+{% set version = "0.7.0" %}
+{% set sha256 = "2b279c91ab905244c5228f73e99cd61bbbdea6529859b8d94026e27f955c6124" %}
 
 package:
     name: {{ name|lower }}
@@ -9,30 +9,33 @@ package:
 source:
     fn: {{ name }}-{{ version }}.tar.gz
     url: https://github.com/QuantStack/xproperty/archive/{{ version }}.tar.gz
-    sha256: {{ sha256 }}   
+    sha256: {{ sha256 }}
 
 build:
     noarch: ''
     noarch_python: false
-    number: 1
+    number: 0
     skip: true  # [win and py<35]
 
 requirements:
     build:
         - cmake
         - toolchain
+        - xtl >=0.4.0,<0.5
     run:
         - xtl >=0.4.0,<0.5
-        
+
 test:
     commands:
         - if exist %LIBRARY_INC%\xproperty\xproperty.hpp (exit 0) else (exit 1)                       # [win]
         - if exist %LIBRARY_LIB%\cmake\xproperty\xpropertyConfig.cmake (exit 0) else (exit 1)         # [win]
         - if exist %LIBRARY_LIB%\cmake\xproperty\xpropertyConfigVersion.cmake (exit 0) else (exit 1)  # [win]
+        - if exist %LIBRARY_LIB%\cmake\xproperty\xpropertyTargets.cmake (exit 0) else (exit 1)        # [win]
         - test -d ${PREFIX}/include/xproperty                                                         # [unix]
         - test -f ${PREFIX}/include/xproperty/xproperty.hpp                                           # [unix]
         - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfig.cmake                                 # [unix]
         - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyConfigVersion.cmake                          # [unix]
+        - test -f ${PREFIX}/lib/cmake/xproperty/xpropertyTargets.cmake                                # [unix]
 
 about:
     description: Leveraging C++ template and preprocessor metaprogramming techniques
